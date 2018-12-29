@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:drinkees/src/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:drinkees/src/models/models.dart';
+import 'package:drinkees/src/widgets/coctail_card.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -53,16 +54,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text('no Coctails'),
           );
         }
-        return ListView.builder(
+        return GridView.builder(
           itemBuilder: (BuildContext context, int index) {
             return index >= state.coctails.length
                 ? _bottomLoader()
-                : _CoctailWidget(state.coctails[index]);
+                : CoctailCard(state.coctails[index]);
           },
           itemCount: state.hasReachedMax
               ? state.coctails.length
               : state.coctails.length + 1,
-          controller: _scrollController,
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         );
       },
     );
@@ -81,21 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _coctailBloc.dispatch(Fetch());
     }
   }
-
-  Widget _CoctailWidget(Coctail coctail) => ListTile(
-        leading: SizedBox(
-          width: 50.0,
-          height: 50.0,
-          child: Image.network(
-            coctail.strDrinkThumb,
-            fit: BoxFit.contain,
-          ),
-        ),
-        title: Text('${coctail.strDrink}'),
-        isThreeLine: true,
-        subtitle: Text(coctail.idDrink),
-        dense: true,
-      );
 
   Widget _bottomLoader() => Container(
         alignment: Alignment.center,
