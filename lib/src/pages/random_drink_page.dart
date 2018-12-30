@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:drinkees/src/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:drinkees/src/models/models.dart';
+import 'package:drinkees/src/widgets/drink_info.dart';
 
 class RandomDrinkPage extends StatefulWidget {
   @override
@@ -39,15 +39,8 @@ class _RandomDrinkPageState extends State<RandomDrinkPage> {
           );
         }
 
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return index >= state.drinks.length
-                ? _bottomLoader()
-                : _postWidget(state.drinks[index]);
-          },
-          itemCount:
-          state.hasReachedMax ? state.drinks.length : state.drinks.length + 1,
-          controller: _scrollController,
+        return Container(
+          child: DrinkInfo(state.drinks[0]),
         );
       },
     );
@@ -66,31 +59,4 @@ class _RandomDrinkPageState extends State<RandomDrinkPage> {
       _drinkBloc.dispatch(Fetch1());
     }
   }
-
-  Widget _postWidget(Drink post) => ListTile(
-    leading: SizedBox(
-      width: 50.0,
-      height: 50.0,
-      child: Image.network(
-        post.strDrinkThumb,
-        fit: BoxFit.contain,),
-    ),
-    title: Text('${post.strDrink}'),
-    isThreeLine: true,
-    subtitle: Text(post.idDrink),
-    dense: true,
-  );
-
-  Widget _bottomLoader() => Container(
-    alignment: Alignment.center,
-    child: Center(
-      child: SizedBox(
-        width: 33,
-        height: 33,
-        child: CircularProgressIndicator(
-          strokeWidth: 1.5,
-        ),
-      ),
-    ),
-  );
 }

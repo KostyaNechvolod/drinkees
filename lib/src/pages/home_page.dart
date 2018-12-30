@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drinkees/src/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:drinkees/src/models/models.dart';
 import 'package:drinkees/src/widgets/coctail_card.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -43,9 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return GridView.builder(
           itemBuilder: (BuildContext context, int index) {
             return CoctailCard(state.coctails[index]);
-            /*index >= state.coctails.length
-                ? _bottomLoader()
-                : CoctailCard(state.coctails[index]);*/
           },
           itemCount: state.hasReachedMax
               ? state.coctails.length

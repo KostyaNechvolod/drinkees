@@ -7,9 +7,9 @@ import 'package:drinkees/src/pages/random_drink_page.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Lime',
-      home: new MainPage(),
+      home: MainPage(),
     );
   }
 }
@@ -17,13 +17,11 @@ class MainScreen extends StatelessWidget {
 class MainPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new _MainPageState();
+    return _MainPageState();
   }
 }
 
-
 class _MainPageState extends State<MainPage> {
-
   /// This controller can be used to programmatically
   /// set the current displayed page
   PageController _pageController;
@@ -33,7 +31,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Coctails'),
           actions: <Widget>[
@@ -47,67 +45,59 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
-        body: new PageView(
+        body: PageView(
             children: [
               MyHomePage(),
+              Text('Category'),
               RandomDrinkPage(),
-              new Container(color: Colors.grey)
             ],
 
             /// Specify the page controller
             controller: _pageController,
-            onPageChanged: onPageChanged
-        ),
-        bottomNavigationBar: new BottomNavigationBar(
+            onPageChanged: onPageChanged),
+        bottomNavigationBar: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(
-                icon: new Icon(
+                icon: Icon(
                   Icons.home,
                   color: Colors.black54,
                 ),
-                title: new Text('Home'),
+                title: Text('Home'),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(
+                icon: Icon(
                   Icons.category,
                   color: Colors.black54,
                 ),
-                title: new Text('Cat.'),
+                title: Text('Cat.'),
               ),
               BottomNavigationBarItem(
-                icon: new Icon(
+                icon: Icon(
                   Icons.free_breakfast,
                   color: Colors.black54,
                 ),
-                title: new Text('Random'),
+                title: Text('Random'),
               ),
             ],
 
             /// Will be used to scroll to the next page
             /// using the _pageController
             onTap: navigationTapped,
-            currentIndex: _page
-        )
-    );
+            currentIndex: _page));
   }
 
   /// Called when the user presses on of the
   /// [BottomNavigationBarItem] with corresponding
   /// page index
-  void navigationTapped(int page){
-
+  void navigationTapped(int page) {
     // Animating to the page.
     // You can use whatever duration and curve you like
-    _pageController.animateToPage(
-        page,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.ease
-    );
+    _pageController.animateToPage(page,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 
-
-  void onPageChanged(int page){
-    setState((){
+  void onPageChanged(int page) {
+    setState(() {
       this._page = page;
     });
   }
@@ -115,14 +105,12 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = new PageController();
+    _pageController = PageController();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _pageController.dispose();
   }
-
-
 }
