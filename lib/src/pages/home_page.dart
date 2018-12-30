@@ -4,58 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:drinkees/src/models/models.dart';
 import 'package:drinkees/src/widgets/coctail_card.dart';
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Infinite Scroll',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Coctails'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.shopping_cart),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: MyHomePage(),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0, // this will be set when a new tab is tapped
-
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.home,
-                color: Colors.black54,
-              ),
-              title: new Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.category,
-                color: Colors.black54,
-              ),
-              title: new Text('Cat.'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.free_breakfast,
-                color: Colors.black54,
-              ),
-              title: new Text('Random'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -122,17 +70,4 @@ class _MyHomePageState extends State<MyHomePage> {
       _coctailBloc.dispatch(Fetch());
     }
   }
-
-  Widget _bottomLoader() => Container(
-        alignment: Alignment.center,
-        child: Center(
-          child: SizedBox(
-            width: 33,
-            height: 33,
-            child: CircularProgressIndicator(
-              strokeWidth: 1.5,
-            ),
-          ),
-        ),
-      );
 }
