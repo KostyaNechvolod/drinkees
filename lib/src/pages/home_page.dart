@@ -12,8 +12,45 @@ class HomePage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Coctails'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: MyHomePage(),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0, // this will be set when a new tab is tapped
+
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: new Icon(
+                Icons.home,
+                color: Colors.black54,
+              ),
+              title: new Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(
+                Icons.category,
+                color: Colors.black54,
+              ),
+              title: new Text('Cat.'),
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(
+                Icons.free_breakfast,
+                color: Colors.black54,
+              ),
+              title: new Text('Random'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -54,15 +91,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text('no Coctails'),
           );
         }
+
         return GridView.builder(
           itemBuilder: (BuildContext context, int index) {
-            return index >= state.coctails.length
+            return CoctailCard(state.coctails[index]);
+            /*index >= state.coctails.length
                 ? _bottomLoader()
-                : CoctailCard(state.coctails[index]);
+                : CoctailCard(state.coctails[index]);*/
           },
           itemCount: state.hasReachedMax
               ? state.coctails.length
-              : state.coctails.length + 1,
+              : state.coctails.length,
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         );

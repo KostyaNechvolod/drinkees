@@ -9,7 +9,7 @@ Widget CoctailCard(Coctail coctail){
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         AspectRatio(
-            aspectRatio: 18.0/11.0,
+            aspectRatio: 18.0/12.0,
             child: Image.network(
               coctail.strDrinkThumb,
               fit: BoxFit.fitWidth,
