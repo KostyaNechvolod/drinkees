@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         return GridView.builder(
           itemBuilder: (BuildContext context, int index) {
-            return CoctailCard(state.coctails[index]);
+            return CoctailCard(context, state.coctails[index]);
           },
           itemCount: state.hasReachedMax
               ? state.coctails.length

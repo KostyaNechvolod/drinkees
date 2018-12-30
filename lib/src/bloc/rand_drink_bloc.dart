@@ -21,7 +21,7 @@ class DrinkBloc extends Bloc<DrinkEvent, DrinkState> {
   Stream<DrinkState> mapEventToState(currentState, event) async* {
     if (event is Fetch1) {
       try {
-        final drinks = await _fetchDrinks();
+        final drinks = await _fetchRandDrink();
         if (drinks.isEmpty) {
           yield currentState.copyWith(hasReachedMax: true);
         } else {
@@ -31,11 +31,37 @@ class DrinkBloc extends Bloc<DrinkEvent, DrinkState> {
         yield DrinkState.failure();
       }
     }
+    if (event is Fetch2) {
+      String idDrink = event.idDrink;
+      try {
+        final drinks = await _fetchDrink(idDrink);
+        if (drinks.isEmpty) {
+          yield currentState.copyWith(hasReachedMax: true);
+        } else {
+          yield DrinkState.success(currentState.drinks + drinks);
+        }
+      } catch (_) {
+        yield DrinkState.failure();
+      }
+    }
+
   }
 
-  Future<List<Drink>> _fetchDrinks() async {
+  Future<List<Drink>> _fetchRandDrink() async {
     String latestProductsUrl =
         'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    http.Response response = await http.get(latestProductsUrl);
+    List popularProductsJson = json.decode(response.body)['drinks'];
+    List<Drink> products = List();
+    popularProductsJson.forEach((json) => products.add(Drink.fromJson(json)));
+
+    print("drinks = $products");
+    return products;
+  }
+
+  Future<List<Drink>> _fetchDrink(String idDrink) async {
+    String latestProductsUrl =
+        'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=$idDrink';
     http.Response response = await http.get(latestProductsUrl);
     List popularProductsJson = json.decode(response.body)['drinks'];
     List<Drink> products = List();
