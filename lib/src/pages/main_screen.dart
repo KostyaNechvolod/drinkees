@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:drinkees/src/pages/home_page.dart';
+import 'package:drinkees/src/pages/random_drink_page.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -28,9 +29,6 @@ class _MainPageState extends State<MainPage> {
   PageController _pageController;
 
   /// Indicating the current displayed page
-  /// 0: trends
-  /// 1: feed
-  /// 2: community
   int _page = 0;
 
   @override
@@ -52,8 +50,7 @@ class _MainPageState extends State<MainPage> {
         body: new PageView(
             children: [
               MyHomePage(),
-//              new Container(color: Colors.red),
-              new Container(color: Colors.blue),
+              RandomDrinkPage(),
               new Container(color: Colors.grey)
             ],
 
